@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.HotelsActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/main_IMG_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/img_pattern_small"
+        android:alpha="0.4"
+        android:scaleType="centerCrop"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/border">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="bottom|center"
+                android:minLines="2"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:background="#00FFFFFF"
+                android:text="find me hotels by best price"
+                android:textSize="18sp"
+                style="@style/ButtonNoShadow"
+                app:cornerRadius="0dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="bottom|center"
+                android:minLines="2"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:background="#00FFFFFF"
+                android:text="find me hotels by popularity"
+                android:textSize="18sp"
+                style="@style/ButtonNoShadow"
+                app:cornerRadius="0dp" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="end|top"
+                android:background="#00000000"
+                app:srcCompat="@drawable/right_arrow"
+                android:elevation="100dp"/>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_LST_hotels"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            tools:listitem="@layout/list_hotel"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>
