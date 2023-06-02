@@ -2,6 +2,7 @@
     <string name="app_name">HotelsApp</string>
     <string name="find_me_hotels">Find Me Hotels !</string>
     <string name="search">search</string>
+    <string name="welcome">Fly With Me\nHotels\n\nWelcome!</string>
     <string name="fly_with_me_title">Fly With Me\nHotels</string>
     <string name="dest">Destination</string>
     <string name="dates">Dates</string>
@@ -9,5 +10,7 @@
     <string name="kids">Kids</string>
     <string name="checkIn">CheckIN</string>
     <string name="checkOut">Check Out</string>
+    <string name="signup">SignUp</string>
+    <string name="login">LOGIN</string>
 
 </resources>
