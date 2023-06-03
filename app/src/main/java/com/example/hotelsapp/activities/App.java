@@ -12,6 +12,5 @@ public class App extends Application {
 
         MySignal.init(this);
         Imager.initHelper(this);
-        ///
     }
 }
