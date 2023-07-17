@@ -7,6 +7,13 @@
     </style>
     <style name="MyOutLineBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/text_input_box_stroke</item>
-
     </style>
+<!--    <style name="CustomTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--        <item name="colorPrimary">@color/gray</item>-->
+
+<!--        &lt;!&ndash; Defining that new color in ColorPrimaryDark &ndash;&gt;-->
+<!--        <item name="colorPrimaryDark">@color/colorOfStatusBar</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+<!--    </style>-->
 </resources>

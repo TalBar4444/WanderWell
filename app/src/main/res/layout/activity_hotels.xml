@@ -5,123 +5,147 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activities.HotelsActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/main_IMG_background"
+        android:id="@+id/hotel_IMG_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/background"
-        android:alpha="0.2"
+        android:background="@drawable/new_background"
         android:scaleType="centerCrop"/>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <ProgressBar
+        android:id="@+id/hotels_loadingProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        style="@android:style/Widget.ProgressBar.Large"
+        android:visibility="invisible"/>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/hotel_BAR_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/hotels_topAppBar_back"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/hotels_topAppBar_back"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:layoutDirection="rtl"
-                app:title="Back To Search"
-                app:menu="@menu/top_app_bar"
-                android:background="@color/white"
-                app:navigationIcon="@drawable/abc_ic_ab_back_material"/>
-
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:paddingBottom="1dp"
-            android:background="@drawable/filter"
-            android:text="@string/filter_by"/>
+            android:layout_height="?attr/actionBarSize"
+            app:title=""
+            android:background="@color/white"
+            app:navigationIcon="@drawable/baseline_arrow_back_24"
+            android:layoutDirection="rtl"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/hotel_BAR_mainLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_below="@+id/hotel_BAR_layout"
+            android:orientation="vertical">
 
-            <RadioGroup
-                android:id="@+id/hotels_BTN_allRadio"
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/hotels_LBL_sortByTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingBottom="5dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/sort_outline"
+                android:text="@string/sort_by"
+                android:textSize="20sp"/>
 
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/hotels_BTN_popularity"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_segmented_left"
-                    android:button="@android:color/transparent"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="@string/popularity"
-                    android:textColor="@drawable/txt_segmented" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/hotels_BTN_price"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_segmented_center"
-                    android:button="@android:color/transparent"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="@string/lowest_price"
-                    android:textColor="@drawable/txt_segmented" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/hotels_BTN_Rank"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_segmented_right"
-                    android:button="@android:color/transparent"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="@string/ranking"
-                    android:textColor="@drawable/txt_segmented" />
-
-            </RadioGroup>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <!-- Note: A RecyclerView can also be used -->
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <!-- Scrollable content -->
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/hotel_LST_hotels"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="10"
-                tools:listitem="@layout/list_hotel" />
-        </androidx.core.widget.NestedScrollView>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+                <RadioGroup
+                    android:id="@+id/hotels_BTN_allRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/hotels_BTN_popularity"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_segmented_left"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:minLines="2"
+                        android:maxLines="2"
+                        android:text="@string/popularity"
+                        android:textSize="20sp"
+                        android:textColor="@drawable/txt_segmented" />
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/hotels_BTN_price"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_segmented_center"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:minLines="2"
+                        android:maxLines="2"
+                        android:text="Price"
+                        android:textSize="20sp"
+                        android:textColor="@drawable/txt_segmented" />
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/hotels_BTN_center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_segmented_right"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@string/distanceFromCenter"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textColor="@drawable/txt_segmented" />
+
+                </RadioGroup>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/hotel_LBL_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:gravity="center"
+                android:maxLines="3"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="5dp"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hotel_LST_hotels"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/list_hotel"/>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 </RelativeLayout>

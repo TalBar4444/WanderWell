@@ -5,7 +5,9 @@ import android.content.res.ColorStateList;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.net.Uri;
+
 import android.widget.ImageView;
+
 
 import androidx.annotation.ColorRes;
 import androidx.core.content.ContextCompat;
@@ -13,6 +15,8 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 
 public class Imager {
+
+    private final String urlNoImage = "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png";
     private static Imager instance;
     private static Context appContext;
 
@@ -97,8 +101,32 @@ public class Imager {
         Glide.with(appContext).load(Uri.parse("file:///android_asset/" + path)).centerCrop().into(imageView);
     }
 
-    public void imageCrop(ImageView imageView, String url) {
-        Glide.with(appContext).load(url).centerCrop().into(imageView);
+    public void imageCrop(ImageView imageView, String url,String className) {
+        String modifiedUrl;
+        if(url!=null) {
+            int desiredWidth, desiredHeight;
+            switch (className) { //A4 > A5
+                case "HotelActivity": //A5 size in mm
+                    desiredWidth = 300;
+                    desiredHeight = 400;
+                    break;
+                case "BuyActivity": //A4 size in mm
+                    desiredWidth = 100;
+                    desiredHeight = 200;
+                    break;
+                default:
+                    desiredWidth = 400;
+                    desiredHeight = 500;
+                    break;
+            }
+            
+            modifiedUrl = url.replace("{width}", String.valueOf(desiredWidth)).replace("{height}", String.valueOf(desiredHeight));
+        }
+        else {
+            modifiedUrl = urlNoImage;
+        }
+
+        Glide.with(appContext).load(modifiedUrl).centerCrop().into(imageView);
 
     }
 }

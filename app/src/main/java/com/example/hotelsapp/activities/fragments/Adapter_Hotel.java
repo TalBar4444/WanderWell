@@ -9,27 +9,32 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hotelsapp.logic.Hotel;
+import com.example.hotelsapp.model.Hotel;
 import com.example.hotelsapp.activities.Imager;
 import com.example.hotelsapp.R;
 import com.google.android.material.textview.MaterialTextView;
 
+
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class Adapter_Hotel extends RecyclerView.Adapter<Adapter_Hotel.HotelViewHolder> {
 
+    private final String urlNoImage = "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png";
     private List<Hotel> hotels;
+    private String className;
 
     private OnHotelClickListener onHotelClickListener;
 
-    public Adapter_Hotel(List<Hotel> hotels) {
+    public Adapter_Hotel(List<Hotel> hotels, String className) {
         this.hotels = hotels;
+        this.className= className;
     }
 
-//    public void updateList(List<Hotel> hotels) {
-//        this.hotels = hotels;
-//        notifyDataSetChanged();
-//    }
+    public void updateList(List<Hotel> hotels) {
+        this.hotels = hotels;
+        notifyDataSetChanged();
+    }
 
     public void setOnHotelClickListener(OnHotelClickListener onHotelClickListener) {
         this.onHotelClickListener = onHotelClickListener;
@@ -48,12 +53,18 @@ public class Adapter_Hotel extends RecyclerView.Adapter<Adapter_Hotel.HotelViewH
 
         holder.hotel_LBL_title.setText(hotel.getTitle());
         holder.hotel_LBL_adults.setText("For " + hotel.getNumOfAdults() + " adults !");
-        holder.hotel_LBL_price.setText("$" +  hotel.getPrice());
-        holder.hotel_LBL_reviews.setText("" + hotel.getNumOfReviews() + " reviews");
+        holder.hotel_LBL_price.setText(addThousandsSeparator(hotel.getPrice())+"$");
+        holder.hotel_LBL_reviews.setText("" + addThousandsSeparator(hotel.getNumOfReviews()) + " reviews");
 
         holder.hotel_RTG_rating.setRating((float) hotel.getRating());
 
-        Imager.me().imageCrop(holder.hotel_IMG_main, hotel.getImage());
+        String imageUrl = hotel.getImage();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Imager.me().imageCrop(holder.hotel_IMG_main, imageUrl, className);
+        }
+        else
+            Imager.me().imageCrop(holder.hotel_IMG_main, urlNoImage, className);
+
 
         if (hotel.isLiked()) {
             holder.hotel_IMG_like.setImageResource(R.drawable.ic_heart_filled);
@@ -111,6 +122,10 @@ public class Adapter_Hotel extends RecyclerView.Adapter<Adapter_Hotel.HotelViewH
                 }
             });
         }
+    }
+    private String addThousandsSeparator(int number) { // and a comma (',') for numbers bigger than 999
+        DecimalFormat dForm = new DecimalFormat("#,###");
+        return dForm.format(number);
     }
 }
 

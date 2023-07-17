@@ -11,8 +11,7 @@
         android:id="@+id/main_IMG_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/background"
-        android:alpha="0.4"
+        android:background="@drawable/new_background"
         android:scaleType="centerCrop"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -38,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="bottom"
-                android:text="@string/fly_with_me"
+                android:text="WanderWell"
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -58,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="top"
-                android:text="Welcome !"
+                android:text="Welcome"
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -69,37 +68,9 @@
             android:layout_width="350dp"
             android:layout_height="80dp"
             android:layout_margin="10dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/search_LAY_dest"
-                style="@style/MyOutLineBox"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:hint="@string/dest"
-                android:padding="5dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusBottomStart="20dp"
-                app:boxCornerRadiusTopEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
-                app:endIconDrawable="@drawable/main_search"
-                app:endIconMode="custom"
-                app:endIconTint="#FF9800"
-                app:errorEnabled="true"
-                app:hintTextColor="#FF9800"
-                app:startIconContentDescription="@string/dest">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/search_EDT_dest"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="text" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/login_BTN_login"
@@ -107,24 +78,24 @@
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:backgroundTint="#FFC107"
+                android:backgroundTint="#B4701236"
                 android:text="@string/login"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:cornerRadius="25dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/login_BTN_signUp"
+                android:id="@+id/login_BTN_register"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:backgroundTint="#FFC107"
-                android:text="@string/signup"
+                android:backgroundTint="#B4701236"
+                android:text="@string/register"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:cornerRadius="25dp" />

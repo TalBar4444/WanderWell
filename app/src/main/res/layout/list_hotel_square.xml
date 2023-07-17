@@ -21,16 +21,16 @@
             android:layout_width="0dp"
             android:layout_height="220dp"
             android:layout_weight="2"
-            app:srcCompat="@drawable/ic_launcher_background"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_launcher_background" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
+            android:orientation="vertical"
             android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:orientation="vertical">
+            android:paddingVertical="8dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -42,58 +42,52 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:gravity="bottom"
-                    android:minLines="2"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
                     android:layout_weight="1"
-                    android:text="Hello World!"/>
+                    android:ellipsize="end"
+                    android:gravity="top"
+                    android:maxLines="3"
+                    android:minLines="1"
+                    android:text="Hello World!"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/hotel_IMG_like"
                     android:layout_width="24dp"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/ic_heart_linear"
-                    android:scaleType="fitStart"/>
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/ic_heart_linear" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.2"
                 android:layout_marginTop="12dp"
-                android:paddingBottom="10dp"
+                android:layout_weight="1.4"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatRatingBar
                     android:id="@+id/hotel_RTG_rating"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:layout_gravity="center"
-                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:progressTint="#FFF000"
-                    android:rating="0"/>
+                    android:rating="0" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/hotel_LBL_reviews"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/hotel_LBL_reviews"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="top|center"
-                        android:minLines="2"
-                        android:maxLines="2"
-                        android:textSize="17sp"
-                        android:text="Hello World!"
-                        tools:ignore="RtlSymmetry"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:gravity="top|center"
+                    android:maxLines="2"
+                    android:minLines="2"
+                    android:text="Hello World!"
+                    android:textSize="17sp"
+                    tools:ignore="RtlSymmetry" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -101,13 +95,12 @@
                 android:id="@+id/hotel_LBL_adults"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:maxLines="1"
+                android:layout_weight="0.7"
                 android:ellipsize="end"
                 android:gravity="bottom|center"
-                android:textSize="17sp"
-
-                android:text="Hello World!"/>
+                android:maxLines="1"
+                android:text="Hello World!"
+                android:textSize="17sp" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -119,29 +112,27 @@
                     android:id="@+id/hotel_BTN_buy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/shani"
                     android:text="Buy Now!"
-                    android:textSize="10sp"
-                    android:backgroundTint="#FF9800"
-                    app:cornerRadius="30dp"/>
+                    android:textSize="12sp"
+                    app:cornerRadius="30dp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/hotel_LBL_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:maxLines="1"
                     android:ellipsize="end"
-                    android:gravity="bottom|end"
+                    android:gravity="bottom|center"
+                    android:maxLines="1"
+                    android:text="Hello World!"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Hello World!"/>
+                    android:textStyle="bold" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-
         </androidx.appcompat.widget.LinearLayoutCompat>
-
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

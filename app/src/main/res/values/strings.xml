@@ -1,26 +1,44 @@
 <resources>
     <string name="app_name">HotelsApp</string>
-    <string name="find_me_hotels">Find Me Hotels</string>
-    <string name="search">search</string>
-    <string name="welcome">Fly With Me\nHotels\n\nWelcome!</string>
-    <string name="fly_with_me_title">Fly With Me\nHotels</string>
+
+    //main~login page
+    <string name="welcome">WanderWell\nHotels\n\nWelcome!</string>
+    <string name="signup">SignUp</string>
+    <string name="login">LOGIN</string>
+
+    //register page
+    <string name="registerTitle">Register</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="register">REGISTER</string>
+
+    //search page
+    <string name="WanderWell_title">WanderWell\nHotels</string>
     <string name="dest">Destination</string>
     <string name="dates">Dates</string>
     <string name="adults">Adults</string>
-    <string name="kids">Kids</string>
+    <string name="rooms">Rooms</string>
     <string name="checkIn">CheckIN</string>
     <string name="checkOut">Check Out</string>
-    <string name="signup">SignUp</string>
-    <string name="login">LOGIN</string>
+    <string name="find_me_hotels">Find Me Hotels</string>
     <string name="my_favorite">My Favorite</string>
-    <string name="username">Username</string>
-    <string name="email">Email</string>
-    <string name="sign_in">Sign In</string>
-    <string name="fly_with_me">Fly With Me</string>
-    <string name="rooms">Rooms</string>
-    <string name="filter_by">Filter By:</string>
+
+
+    <string name="flyWithMe">Fly With Me</string>
+
+    //hotels page
+    <string name="sort_by">Sort By:</string>
     <string name="popularity">Popularity</string>
-    <string name="lowest_price">Lowest Price</string>
-    <string name="ranking">Ranking</string>
+    <string name="price">Price</string>
+    <string name="distanceFromCenter">Distance From Center</string>
+    <string name="search">Search</string>
+    <string name="SecondTitle">Discover, Book, and Explore Your Perfect Hotel Experience</string>
+    <string name="hotels_not_found">No matches were found for the specific details :(</string>
+    <string name="favorite_not_found">You haven\'t selected your favorite hotels yet</string>
+    <string name="search_hotels_available">No Hotels available</string>
+    <string name="default_not_found">There are no hotels available</string>
+    <string name="hotels_message">Show hotels in: \n</string>
+
 
 </resources>

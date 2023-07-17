@@ -75,16 +75,11 @@
                     android:progressTint="#FFF000"
                     android:rating="0"/>
 
-                <!--            <View-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="match_parent"-->
-                <!--                android:layout_weight="0.2"/>-->
-
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/hotel_LBL_reviews"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:gravity="end"
+                    android:layout_gravity="top|end"
                     android:paddingStart="5sp"
                     android:textSize="14sp"
                     android:text="Hello World!"

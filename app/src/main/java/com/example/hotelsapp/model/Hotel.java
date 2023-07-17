@@ -1,16 +1,28 @@
-package com.example.hotelsapp.logic;
+package com.example.hotelsapp.model;
 
 public class Hotel {
+
+    private String id;
     private String title;
     private String image;
     private double rating;
     private int numOfAdults;
     private int price;
-    private int numOfKids;
     private int numOfReviews;
     private boolean liked = false;
+    private String generalSize;
 
     public Hotel() {}
+
+    public String getId() {
+        return id;
+    }
+
+    public Hotel setId(String id) {
+        this.id = id;
+        return this;
+    }
+
 
     public String getTitle() {
         return title;
@@ -37,14 +49,6 @@ public class Hotel {
     public Hotel setNumOfAdults(int numOfAdults) {
         this.numOfAdults = numOfAdults;
         return this;
-    }
-
-    public int getNumOfKids() {
-        return numOfKids;
-    }
-
-    public void setNumOfKids(int numOfKids) {
-        this.numOfKids = numOfKids;
     }
 
     public int getPrice() {
@@ -80,5 +84,27 @@ public class Hotel {
     public Hotel setLiked(boolean liked) {
         this.liked = liked;
         return this;
+    }
+
+    public String getGeneralSize() {
+        return generalSize;
+    }
+
+    public void setGeneralSize(String generalSize) {
+        this.generalSize = generalSize;
+    }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "id='" + id + '\''+
+                ", title='" + title + '\'' +
+                ", image='" + image + '\'' +
+                ", rating=" + rating +
+                ", numOfAdults=" + numOfAdults +
+                ", price=" + price +
+                ", numOfReviews=" + numOfReviews +
+                ", liked=" + liked +
+                '}';
     }
 }

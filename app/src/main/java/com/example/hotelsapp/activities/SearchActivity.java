@@ -1,38 +1,48 @@
 package com.example.hotelsapp.activities;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.hotelsapp.MySignal;
 import com.example.hotelsapp.R;
+import com.example.hotelsapp.model.LocationData;
+import com.example.hotelsapp.server.ServerConnect;
+
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
 
     public static final String KEY_BUNDLE = "KEY_BUNDLE";
     private TextInputLayout search_LAY_dest, search_LAY_checkIn, search_LAY_checkOut;
     private TextInputEditText search_EDT_dest, search_EDT_checkIn, search_EDT_checkOut;
-    private MaterialButton search_BTN_findHotels, search_BTN_search, search_BTN_favorite;
+    private MaterialButton search_BTN_findHotels, search_BTN_search, search_BTN_favorite,search_BTN_logout;
     private Calendar checkInCalendar, checkOutCalendar;
     private String checkIn, checkOut;
     private SimpleDateFormat dateFormat;
     private AutoCompleteTextView search_PICK_adults, search_PICK_rooms;
-    private String adults, rooms;
+    private int adults, rooms;
     private ArrayAdapter<String> adapterAdults, adapterRooms;
     private String[] itemAdults = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
     private String[] itemRooms = {"1", "2", "3", "4"};
@@ -42,22 +52,46 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        bundle = getIntent().getBundleExtra(MainActivity.KEY_BUNDLE);
+        bundle = getIntent().getBundleExtra(SearchActivity.KEY_BUNDLE);
+
         findViews();
         onEditDestination();
         onDateEDT();
         onAmountOfPeopleInRoom();
+
         search_BTN_findHotels.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 confirmViews(v);
             }
         });
-//        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-//        getCurrentLocation();
+
+        search_BTN_favorite.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                openMyFavoritePage();
+            }
+        });
+
+        search_BTN_search.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                refresh();
+            }
+        });
+
+        search_BTN_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                openMainActivity();
+            }
+        });
+
     }
 
     private void findViews() {
+
         search_LAY_dest = findViewById(R.id.search_LAY_dest);
         search_EDT_dest = findViewById(R.id.search_EDT_dest);
         search_LAY_checkIn = findViewById(R.id.search_LAY_checkIn);
@@ -76,6 +110,7 @@ public class SearchActivity extends AppCompatActivity {
         search_BTN_findHotels = findViewById(R.id.search_BTN_find);
         search_BTN_search = findViewById(R.id.search_BTN_search);
         search_BTN_favorite = findViewById(R.id.search_BTN_favorite);
+        search_BTN_logout = findViewById(R.id.search_BTN_logout);
     }
 
     private void onEditDestination() {
@@ -88,8 +123,11 @@ public class SearchActivity extends AppCompatActivity {
     }
     private void onDateEDT(){
         search_EDT_checkIn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); // for lower the keyboard
+                imm.hideSoftInputFromWindow(search_EDT_checkIn.getWindowToken(), 0);
                 showDatePicker(true);
             }
         });
@@ -107,39 +145,31 @@ public class SearchActivity extends AppCompatActivity {
 
     private void showDatePicker(final boolean isCheckIn) {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            //         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar selectedDate = Calendar.getInstance();
                 selectedDate.set(year, monthOfYear, dayOfMonth);
-                Log.d("selectedDate", formatDate(selectedDate));
 
                 if (isCheckIn) {
                     checkInCalendar = selectedDate;
-                    checkIn = formatDate(checkInCalendar);
+                    checkIn = formatDateForApi(checkInCalendar);
                     search_LAY_checkIn.setError(null);
-                    Log.d("checkIn",checkIn);
                     search_EDT_checkIn.setText(formatDate(checkInCalendar));
-                    //MySignal.getInstance().toast("Check-In Date: " + formatDate(checkInCalendar));
                 } else {
                     checkOutCalendar = selectedDate;
-                    //MySignal.getInstance().toast("Check-Out Date: " + formatDate(checkOutCalendar));
-                    checkOut = formatDate(checkOutCalendar);
+
+                    checkOut = formatDateForApi(checkOutCalendar);
                     search_LAY_checkOut.setError(null);
-                    Log.d("checkOut",checkOut);
                     search_EDT_checkOut.setText(formatDate(checkOutCalendar));
                 }
             }
         };
 
-        //DatePickerDialog datePicker = new DatePickerDialog(this,"@style");
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(SearchActivity.this, dateSetListener,
-
                 checkInCalendar.get(Calendar.DAY_OF_MONTH),
                 checkInCalendar.get(Calendar.MONTH),
                 checkInCalendar.get(Calendar.YEAR));
-//        datePickerDialog.
+
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
         if(checkInCalendar != null && !isCheckIn)
             datePickerDialog.getDatePicker().setMinDate(checkInCalendar.getTimeInMillis());
@@ -152,7 +182,13 @@ public class SearchActivity extends AppCompatActivity {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        return String.format("%d/%02d/%02d",day, month, year);
+        return String.format("%02d/%02d/%04d",day, month, year);
+    }
+    private String formatDateForApi(Calendar calendar) {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        return String.format("%04d-%02d-%02d",year, month, day );
     }
 
     private void onAmountOfPeopleInRoom() {
@@ -160,8 +196,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(SearchActivity.this, "Item " + item, Toast.LENGTH_SHORT).show();
-                adults = item;
+                adults = Integer.parseInt(item);
                 if (!validateAdultPicker())
                     return;
             }
@@ -171,8 +206,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                Toast.makeText(SearchActivity.this, "Item " + item, Toast.LENGTH_SHORT).show();
-                rooms = item;
+                rooms = Integer.parseInt(item);
                 if (!validateRoomsPicker())
                     return;
             }
@@ -207,14 +241,14 @@ public class SearchActivity extends AppCompatActivity {
     }
     private boolean validateAdultPicker(){
         if(search_PICK_adults.getText().toString().trim().isEmpty()) {
-            adults = "2";
+            adults = 2;
             return true;
         }
         return true;
     }
     private boolean validateRoomsPicker(){
         if(search_PICK_rooms.getText().toString().trim().isEmpty()) {
-            rooms = "1";
+            rooms = 1;
             return true;
         }
         return true;
@@ -223,31 +257,92 @@ public class SearchActivity extends AppCompatActivity {
     private void confirmViews(View v) {
         if(!validateDestination()|!validateCheckIn() | !validateCheckOut()|!validateAdultPicker() | !validateRoomsPicker())
             return;
-        openHotelsPage();
+
+        getGeoId(search_EDT_dest.getText().toString());
+
     }
 
-    private void openHotelsPage(){
-        String userSearch= "Destination:" + search_EDT_dest + ",checkIn:" + checkIn + ",checkOut:" +
-                checkOut + ",adults:"+ adults+",rooms:"+rooms;
+    private void getGeoId(String destination) {
+        ServerConnect.getInstance().invokeGetGeoLocation(destination, new Callback<Object>() {
+            @Override
+            public void onResponse(retrofit2.Call<Object> call, Response<Object> response) {
+                Log.d("checkMe","Im in Search, in function onResponse start");
+                if (response.isSuccessful()) {
+                    if(response.body() != null) {
+                        LocationData location = (LocationData) response.body();
+                        openHotelsPage(location.getGeoId(),location.getSecondaryText());
+                    }
+                } else {
+                    MySignal.getInstance().toast("unsuccessful response of geoId ");
+                    openFailedLoadingPage();
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<Object> call, Throwable t) {
+                openFailedLoadingPage();
+                MySignal.getInstance().toast("Failed to get geoId");
+            }
+        });
+    }
+
+    private void openHotelsPage(String geoId,String location){
         Intent intent = new Intent(this, HotelsActivity.class);
         if(bundle == null) {
             Bundle myBundle = new Bundle();
-            myBundle.putString(HotelsActivity.KEY_BUNDLE,userSearch);
-            intent.putExtra(KEY_BUNDLE, myBundle);
+            myBundle.putString(HotelsActivity.KEY_LOCATION, location);
+            myBundle.putString(HotelsActivity.KEY_GEOID, geoId);
+            myBundle.putString(HotelsActivity.KEY_CHECK_IN, checkIn);
+            myBundle.putString(HotelsActivity.KEY_CHECK_OUT, checkOut);
+            myBundle.putInt(HotelsActivity.KEY_ADULTS, adults);
+            myBundle.putInt(HotelsActivity.KEY_ROOMS, rooms);
+            intent.putExtra(HotelsActivity.KEY_BUNDLE, myBundle);
         }
-        //updateLocationInBundle(myBundle);
+        else {
+            bundle.putString(HotelsActivity.KEY_GEOID, geoId);
+            bundle.putString(HotelsActivity.KEY_LOCATION, location);
+            bundle.putString(HotelsActivity.KEY_CHECK_IN, checkIn);
+            bundle.putString(HotelsActivity.KEY_CHECK_OUT, checkOut);
+            bundle.putInt(HotelsActivity.KEY_ADULTS, adults);
+            bundle.putInt(HotelsActivity.KEY_ROOMS, rooms);
+            intent.putExtra(HotelsActivity.KEY_BUNDLE, bundle);
+        }
         startActivity(intent);
-        finish();
     }
 
-//    private void updateLocationInBundle(Bundle bundle){
-//        try{
-//            bundle.putDouble(ActivityScoreTable.KEY_LAT, currentLocation.getLatitude());
-//            bundle.putDouble(ActivityScoreTable.KEY_LNG, currentLocation.getLongitude());
-//        }catch (Exception e){
-//            bundle.putDouble(ActivityScoreTable.KEY_LAT, 0);
-//            bundle.putDouble(ActivityScoreTable.KEY_LNG, 0);
-//        }
-//    }
+    private void  openFailedLoadingPage() {
+        Intent intent = new Intent(this, FailedLoadActivity.class);
+        if(bundle == null) {
+            Bundle myBundle = new Bundle();
+            myBundle.putString(FailedLoadActivity.KEY_CLASS, this.getClass().getSimpleName());
+            intent.putExtra(FailedLoadActivity.KEY_BUNDLE, myBundle);
+        }
+        else{
+            bundle.putString(FailedLoadActivity.KEY_CLASS, this.getClass().getSimpleName());
+            intent.putExtra(FailedLoadActivity.KEY_BUNDLE, bundle);
+        }
+        startActivity(intent);
+    }
+
+    private void openMyFavoritePage() {
+        Intent intent = new Intent(this, FavoriteActivity.class);
+        startActivity(intent);
+
+    }
+
+    private void refresh() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
+
+    private void openMainActivity() {
+        Intent intent = new Intent(this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+
+
+    }
+
 
 }

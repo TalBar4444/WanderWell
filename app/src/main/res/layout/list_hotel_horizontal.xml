@@ -94,11 +94,6 @@
                     android:progressTint="#FFF000"
                     android:rating="0"/>
 
-                <!--            <View-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="match_parent"-->
-                <!--                android:layout_weight="1"/>-->
-
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/hotel_LBL_reviews"
                     android:layout_width="wrap_content"
