@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="rtl">
+
+    <item
+        android:id="@+id/back"
+        android:title="Back"
+        android:icon="@drawable/baseline_arrow_forward_24"
+        android:contentDescription="content_description_back"
+        app:showAsAction="always"/>
+
+<!--    <item-->
+<!--        android:id="@+id/more"-->
+<!--        android:title="more"-->
+<!--        android:contentDescription="content_description_more"-->
+<!--        app:showAsAction="never" />-->
+
+<!--    <item-->
+<!--        android:id="@+id/edit"-->
+<!--        android:title="Edit"-->
+<!--        android:contentDescription="content_description_search"-->
+<!--        app:showAsAction="ifRoom" />-->
+
+<!--    <item-->
+<!--        android:id="@+id/favorite"-->
+<!--        android:icon="drawable/ic_favorite_24dp"-->
+<!--        android:title="favorite"-->
+<!--        android:contentDescription="content_description_favorite"-->
+<!--        app:showAsAction="ifRoom" />-->
+
+
+
+</menu>
