@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.StartActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/main_IMG_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/new_background"
+        android:background="@drawable/background"
         android:scaleType="centerCrop"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat

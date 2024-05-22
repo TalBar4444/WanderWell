@@ -130,7 +130,7 @@ public class HotelsActivity extends AppCompatActivity {
         hotels_BTN_price= findViewById(R.id.hotels_BTN_price);
         hotels_BTN_popularity= findViewById(R.id.hotels_BTN_popularity);
 
-        Imager.me().imageByDrawableCrop(hotel_IMG_background, R.drawable.new_background);
+        Imager.me().imageByDrawableCrop(hotel_IMG_background, R.drawable.background);
     }
 
     private void fetchHotels(String geoId, String checkIn, String checkOut, String sort, int adults, int rooms) {
@@ -223,7 +223,6 @@ public class HotelsActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void backToSearchPage(){

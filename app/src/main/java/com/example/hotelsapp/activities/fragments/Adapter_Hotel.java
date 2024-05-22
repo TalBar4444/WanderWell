@@ -9,11 +9,10 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hotelsapp.model.Hotel;
-import com.example.hotelsapp.activities.Imager;
 import com.example.hotelsapp.R;
+import com.example.hotelsapp.activities.Imager;
+import com.example.hotelsapp.model.Hotel;
 import com.google.android.material.textview.MaterialTextView;
-
 
 import java.text.DecimalFormat;
 import java.util.List;

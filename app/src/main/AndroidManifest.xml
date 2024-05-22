@@ -17,7 +17,7 @@
         android:theme="@style/Theme.HotelsApp"
         tools:targetApi="31" >
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

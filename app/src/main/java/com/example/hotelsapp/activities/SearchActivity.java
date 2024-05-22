@@ -337,7 +337,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void openMainActivity() {
-        Intent intent = new Intent(this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Intent intent = new Intent(this, StartActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
 

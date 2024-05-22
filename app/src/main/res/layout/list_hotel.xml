@@ -109,11 +109,8 @@
                 android:layout_weight="1"
                 android:text="Hello World!"/>
 
-
-
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
 
 </com.google.android.material.card.MaterialCardView>

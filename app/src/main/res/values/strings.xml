@@ -39,6 +39,10 @@
     <string name="search_hotels_available">No Hotels available</string>
     <string name="default_not_found">There are no hotels available</string>
     <string name="hotels_message">Show hotels in: \n</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
